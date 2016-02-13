@@ -1,21 +1,30 @@
-#include <iostream>
+#include "BST.h"
 
 using namespace std;
 
-class Node
+void BST::BST()
 {
-public:
-    Node *left, *right, *parent;
-    int key;
-} emptyNode;
+    senti = new Node();
+    senti -> parent = senti;
+    senti -> left   = senti;
+    senti -> right  = senti;
+}
 
-class BST
+void BST::inorder(Node* node)
 {
-private:
-    Node *root;
 
-public:
-    void add(int);
+}
 
+void BST::insert(int x)
+{
+    auto newNode = new Node;
+    newNode -> key = x;
+    if (emtpy())
+    {
+        senti -> left = newNode;
+    }
+    else
+    {
 
+    }
 }
