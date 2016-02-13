@@ -15,7 +15,10 @@ private:
     Node *root;
 
 public:
-    
+    void add(int x)
+    {
+
+    }
 
 
 }
