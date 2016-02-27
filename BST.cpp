@@ -2,22 +2,23 @@
 
 using namespace std;
 
-void BST::BST()
+BST::BST()
 {
     nil = new Node();
     nil -> parent = nil;
     nil -> left   = nil;
     nil -> right  = nil;
+    nil -> key    = 0;
 }
 
 Node * BST::root()
 {
-    nil -> left;
+    return nil -> left;
 }
 
 void BST::inorder()
 {
-    inorder(root());
+    inorderRec(root());
     cout << endl;
 }
 
@@ -77,13 +78,13 @@ void BST::preOrder()
     cout << endl;
 }
 
-void BST::preOrderRec(Node* node)
+void BST::preOrderRec(Node* x)
 {
-    if (node != nil)
+    if (x != nil)
     {
         cout << x -> key << " ";
-        preOrder(x -> left);
-        preOrder(x -> right);
+        preOrderRec(x -> left);
+        preOrderRec(x -> right);
     }
 }
 
@@ -93,13 +94,13 @@ void BST::postOrder()
     cout << endl;
 }
 
-void BST::postOrderRec()
+void BST::postOrderRec(Node* x)
 {
-    if (node != nil)
+    if (x != nil)
     {
         postOrderRec(x -> left);
         postOrderRec(x -> right);
-        cout << x -> << " ";
+        cout << x -> key << " ";
     }
 }
 
@@ -108,7 +109,7 @@ Node* BST::find(int val)
     auto r = root();
     while (r != nil && r -> key != val)
     {
-        r = (r -> key < val)
+        r = (r -> key > val)
                 ? r -> left
                 : r -> right;
     }
@@ -117,7 +118,7 @@ Node* BST::find(int val)
 
 Node* BST::minimum(Node* root)
 {   // return left most leaf in the tree
-    while (roor -> left != nil)
+    while (root -> left != nil)
     {
         root = root -> left;
     }
@@ -179,10 +180,13 @@ void BST::insert(int k)
 void BST::insert(Node* node)
 {
     auto x = root();
+    node -> left = nil;
+    node -> right = nil;
     auto p = x -> parent;
 
     while (x != nil)
     {
+        if (x -> key == node -> key) return;
         p = x;
         x = (x -> key > node -> key)
                 ? x -> left
@@ -197,7 +201,7 @@ void BST::insert(Node* node)
     }
     else
     {   // insert node as left/right according to key
-        if (node -> key > p -> key)
+        if (node -> key >= p -> key)
         {
             p -> right = node;
         }
@@ -208,7 +212,7 @@ void BST::insert(Node* node)
     }
 }
 
-void BTS::remove(int key)
+void BST::remove(int key)
 {
     remove(find(key));
 }
@@ -241,7 +245,6 @@ void BST::remove(Node* node)
         s -> left = node -> left;
         s -> left -> parent = s;
     }
-
     delete node;
 }
 
@@ -256,8 +259,12 @@ void BST::transplant(Node* u, Node* v)
     {   // both could happen at the same time if u is root()
         u -> parent -> right = v;
     }
-
     v -> parent = u -> parent;
+}
+
+bool BST::empty()
+{
+    return (nil -> left == nil);
 }
 
 

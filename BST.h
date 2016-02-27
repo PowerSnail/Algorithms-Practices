@@ -25,7 +25,7 @@ public:
     void preOrder();
     void preOrderRec(Node*);
     void postOrder();
-    void postOrderRec();
+    void postOrderRec(Node*);
 
     // Search Operations
     Node* find(int);
@@ -39,6 +39,6 @@ public:
     void insert(Node*);
     void remove(int);
     void remove(Node*);
-    void transplant(Node*, Node*)
+    void transplant(Node*, Node*);
     bool empty();
 };
