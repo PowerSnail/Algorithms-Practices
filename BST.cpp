@@ -55,7 +55,8 @@ void BST::inorderIter()
             cout << x -> key << " ";
             if (x -> right == nil)
             {  // right branch is nil
-                prev = x -> right;
+                prev = x;
+                x = x -> parent;
             }
             else
             {

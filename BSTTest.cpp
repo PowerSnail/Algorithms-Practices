@@ -19,6 +19,8 @@ int main()
     b.postOrder();
     cout << "pre order " << endl;
     b.preOrder();
+    cout << "inorder iter" << endl;
+    b.inorderIter();
 
 
 
