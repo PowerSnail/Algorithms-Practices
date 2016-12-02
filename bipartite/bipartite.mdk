@@ -1,0 +1,77 @@
+Title         : My Academic Paper
+
+Author        : Han Jin
+Affiliation   : UVa
+Email         : hj5fb@virginia.edu
+
+Bibliography  : example.bib
+Doc class     : [reprint,nocopyrightspace]style/sigplanconf.cls
+
+[TITLE]
+
+# Warm Up
+
+If the graph allows self-connecting edges, then here is an counter-example:
+
+![simple]
+
+[simple]: images/simple.svg "simple" { width:auto; max-width:90% }
+
+
+> $n = 2$, $DEG(A) = 1, DEG(B) = 1$
+
+If the graph does not allow such edges, then here is a proof:
+
+~ Proof
+Proof by Contradiction
+
+Let $G$ be an undirected graph with $n$ nodes, where $n$ is even. Use $G(n)$ to denote an arbitrary graph with $n$ nodes.
+
+Assume in $G$, there are $n$ vertices, $V = [v_1, v_2, ..., v_n]$. $\forall v \in V, DEG(v) \geq \dfrac{n}{4}$, while the graph is not connected. Let $E$ denote the set of edges.
+
+If the graph is not connected, we can at least divide $G$ into two sub-graphs, $G_1$, $G_2$, such that there is not edge between $G_1$, and $G_2$. Without loosing generality, assume that $G_1$ has more or equal vertices than $G_2$.
+
+This means that for an arbitrary vertex $v' \in G_2$, there are at least $\dfrac{n}{2}$ vertices it is _not_ connected to. The number of vertices it is connected is less than $n - \dfrac{n}{2} - 1$ as the graph has no self-directed edge. This violates the fact that $DEG(v') \geq \dfrac{n}{2}$.
+
+By contradiction, $G$ is connected.[&box;]{float=right}
+~
+
+
+# 
+
+Assume the _Bi-Partite_ algorthm is not optimal. 
+
+![bipartite]
+
+[bipartite]: images/bipartite.svg "bipartite" { width:auto; max-width:90% }
+
+
+
+This means there exists an edge $(A, B)$ where $A \in G_1, B\in G_2$, and both $A$ and $B$ are not connected to any other vertex in the opposite subgraph. This means $(start, A)$ and $(B, sink)$ still has $0/1$ flow, and thus, $(start, A, B, sink)$ is a valid augmenting path of capacity $1$. This contradcits the fact that _MaxFlow_ algorithm terminates.
+
+# 
+
+
+# 
+
+# 
+
+## $HC\leq_p HP$
+
+We can solve HC using HP algorithm, by converting an arbitrary Hamiltonian path to a Hamiltonian cycle. 
+
+If we are asked to find HC in a graph $G$, then choose a random vertex $v$, and for each of its neighbor $v_n$, solve an HP problem on $G$, that starts at $v$ and ends at $v_n$. If this path is found for one of the neighbors, we can append the path with the edge $(v_n, v)$ to complete an Hamiltonian cycle. 
+
+The transformation requires $O(n)$ operations and calls to HP algorithm, and thus $HC \leq_p HP$.
+
+## $HP \leq_p HC$
+
+We can solve HP using an HC algorithm. Any Hamilton Path would be able to extend one edge to complete an Hamilton Cycle, by connecting its starting and ending point. Therefore, to find a Hamilton Path in $G$, we need to 
+
+1. try to find HC in $G$, if HC is found, then return HC minus an arbitrary edge.
+2. if HC is not found, then for each $(v1, v2)$, such that they are not connected, try to find HC in $G\cup edge(v1, v2)$. If this HC is found, return HC minus $edge(v1, v2)$. 
+3. if no HC is found, then no HP exists.
+
+The above operations require $O(n^2)$ calls to HC algorithm, and is thus polynomial reduction.
+
+Therefore $HC \leq_q HP$.
